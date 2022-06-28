@@ -7,6 +7,7 @@ Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
 """
 
+import uuid
 import os
 import sys
 import random
@@ -84,7 +85,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                       scores=None, title="",
                       figsize=(16, 16), ax=None,
                       show_mask=True, show_bbox=True,
-                      colors=None, captions=None):
+                      colors=None, captions=None, path = None):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
     masks: [height, width, num_instances]
@@ -163,7 +164,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
-    plt.savefig('_path_to_image.jpg',bbox_inches='tight', pad_inches=-0.5,orientation= 'landscape')
+    plt.savefig(path + str(uuid.uuid4())+'.jpg',
+                bbox_inches='tight', pad_inches=-0.5, orientation='landscape')
     if auto_show:
         plt.show()
     
